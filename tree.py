@@ -32,8 +32,6 @@ class Tree:
         if n == 0:
             return
 
-        self.max_dist /= 1.3
-
         for _ in range(n):
             new_point = Point.random_with_boundaries(self.boundaries)
             closest_node = self.start
@@ -50,21 +48,9 @@ class Tree:
 
             PointNode(new_point.x, new_point.y, parent = closest_node)
 
-    def show_on_plot(self, plot: pyplot):
+    def get_plottable(self):
+        plottable = []
         for n in reversed(list(LevelOrderIter(self.start))):
             if n.parent:
-                plot.plot([n.x, n.parent.x], [n.y, n.parent.y], 'bo-')
-
-        plot_boundaries = []
-
-        if self.boundaries[0].x > self.boundaries[1].x:
-            plot_boundaries += [self.boundaries[1].x, self.boundaries[0].x]
-        else:
-            plot_boundaries += [self.boundaries[0].x, self.boundaries[1].x]
-
-        if self.boundaries[0].y > self.boundaries[1].y:
-            plot_boundaries += [self.boundaries[1].y, self.boundaries[0].y]
-        else:
-            plot_boundaries += [self.boundaries[0].y, self.boundaries[1].y]
-
-        plot.autoscale()
+                plottable.append(([n.x, n.parent.x], [n.y, n.parent.y], 'b-'))
+        return plottable
