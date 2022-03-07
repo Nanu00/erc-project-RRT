@@ -17,10 +17,14 @@ class Tree:
     Attributes:
         start: The start node, top of the tree
         end: The end area
+        boundaries: A tuple with the bottom left and top right points of the working space, in that order
+        obstacles: A list of obstacles to avoid going over
+        max_dist: The maximum distance at which a new node will get added to a tree
     '''
 
     def __init__(self, start, end, boundaries, obstacles=[]):
-        '''Inits the class Tree with a start point and an end "obstacle"'''
+        '''Inits the class Tree with a start point and an end "obstacle", also sets boundaries and gets obstacles.
+        '''
         self.start = PointNode(start.x, start.y)
         self.end = end
         self.boundaries = boundaries
@@ -28,6 +32,9 @@ class Tree:
         self.max_dist = min(abs(boundaries[0].x - boundaries[1].x), abs(boundaries[0].y - boundaries[1].y))/40
 
     def sample_iter(self, n):
+        '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist.
+        Returns: nothing
+        '''
         if n == 0:
             return
 
@@ -47,6 +54,9 @@ class Tree:
             PointNode(new_point.x, new_point.y, parent = closest_node)
 
     def get_plottable(self):
+        '''Outputs the lines to plot using matplotlib's plot() function.
+        Returns: [ ( [x1, x2], [y1, y2], 'b-' ), ... ]
+        '''
         plottable = []
         for n in reversed(list(LevelOrderIter(self.start))):
             if n.parent:
