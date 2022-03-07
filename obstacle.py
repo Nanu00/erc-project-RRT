@@ -1,6 +1,10 @@
-from utils import Point
-from anytree import NodeMixin, LevelOrderIter, PreOrderIter
-import matplotlib.pyplot as pyplot
+#from shapely.ops import polygonize
+from shapely.geometry import Polygon
+#from shapely.geometry import MultiPolygon
+from shapely.geometry import Point
+#from shapely.geometry import MultiLineString
+#from anytree import NodeMixin, LevelOrderIter, PreOrderIter
+import matplotlib.pyplot as plt
 
 class PointNode(Point, NodeMixin):
     def __init__(self, x, y, parent=None, children=None):
