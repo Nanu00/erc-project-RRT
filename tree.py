@@ -12,6 +12,15 @@ class PointNode(Point, NodeMixin):
     def __repr__(self):
         return "PointNode(%f, %f)" % (self.x, self.y)
 
+    def plottable_path(self):
+        xs = []
+        ys = []
+        for n in self.path:
+            xs.append(n.x)
+            ys.append(n.y)
+
+        return (xs, ys, "y-")
+
 class Tree:
     '''Tree
     Attributes:
@@ -29,11 +38,11 @@ class Tree:
         self.end = end
         self.boundaries = boundaries
         self.obstacles = obstacles
-        self.max_dist = min(abs(boundaries[0].x - boundaries[1].x), abs(boundaries[0].y - boundaries[1].y))/40
+        self.max_dist = min(abs(boundaries[0].x - boundaries[1].x), abs(boundaries[0].y - boundaries[1].y))/30
 
     def sample_iter(self, n):
         '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist and check for intersections.
-        Returns: nothing
+        Returns: Last Point in path if solution is found, None otherwise
         '''
         if n == 0:
             return
@@ -58,7 +67,9 @@ class Tree:
                     intersects = True
 
             if not intersects:
-                PointNode(new_point.x, new_point.y, parent = closest_node)
+                new_node = PointNode(new_point.x, new_point.y, parent = closest_node)
+                if self.end.checkint(new_node, closest_node):
+                    return new_node
 
     def get_plottable(self):
         '''Outputs the lines to plot using matplotlib's plot() function.
