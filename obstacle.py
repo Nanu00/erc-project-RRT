@@ -21,13 +21,14 @@ class Obsctacle:
         '''Inits the class Tree with a start point and an end "obstacle"'''
         self.boundaries = boundaries
         self.defintions = defintions
+        self = Polygon(self.defintions)
 
     def get_plottable(self):
         x,y = self.exterior.coords.xy
        # plt.plot(x,y)
 
     def checkint(self, tree): # how do you give input from external stuff?
-        tree.crosses(self)
+        tree.crosses(self.defintions)
         if True:
             redo tree?
         else 
