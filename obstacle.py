@@ -1,5 +1,5 @@
 #from shapely.ops import polygonize
-from shapely.geometry import Polygon
+from shapely.geometry import Polygon, LineString
 import matplotlib.pyplot as plt
 
 ''' start transplant'''
@@ -17,8 +17,9 @@ class Obsctacle:
         self.pol = Polygon(self.defintions)
 
     def get_plottable(self):
-        x,y = self.exterior.coords.xy
+        x,y = self.pol.exterior.coords.xy
         return (x, y, 'r-') 
 
-    def checkint(self, tree): # how do you give input from external stuff?
-        return tree.intersects(self.pol)
+    def checkint(self, p1, p2): # how do you give input from external stuff?
+        l = LineString([p1, p2])
+        return self.pol.intersects(l)

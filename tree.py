@@ -1,4 +1,5 @@
 from utils import Point
+from obstacle import Obsctacle
 from anytree import NodeMixin, LevelOrderIter, PreOrderIter
 
 class PointNode(Point, NodeMixin):
@@ -31,7 +32,7 @@ class Tree:
         self.max_dist = min(abs(boundaries[0].x - boundaries[1].x), abs(boundaries[0].y - boundaries[1].y))/40
 
     def sample_iter(self, n):
-        '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist.
+        '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist and check for intersections.
         Returns: nothing
         '''
         if n == 0:
@@ -50,7 +51,14 @@ class Tree:
                 new_y = closest_node.y + (new_point.y - closest_node.y) * (self.max_dist/least_dist)
                 new_point = Point(new_x, new_y)
 
-            PointNode(new_point.x, new_point.y, parent = closest_node)
+            intersects = False
+
+            for o in self.obstacles:
+                if o.checkint(new_point, closest_node):
+                    intersects = True
+
+            if not intersects:
+                PointNode(new_point.x, new_point.y, parent = closest_node)
 
     def get_plottable(self):
         '''Outputs the lines to plot using matplotlib's plot() function.
