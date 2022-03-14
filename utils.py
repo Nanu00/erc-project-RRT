@@ -1,11 +1,6 @@
 import random
 import shapely.geometry
 
-def random_with_boundaries(boundaries):
-    new_x = random.random()*abs(boundaries[0].x - boundaries[1].x) + min(boundaries[0].x, boundaries[1].x)
-    new_y = random.random()*abs(boundaries[0].y - boundaries[1].y) + min(boundaries[0].y, boundaries[1].y)
-    return Point(new_x, new_y)
-
 class Point(shapely.geometry.Point):
     def __init__(self, x: float, y: float):
         shapely.geometry.Point.__init__(self, x, y)
