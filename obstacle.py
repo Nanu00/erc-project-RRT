@@ -1,9 +1,5 @@
 #from shapely.ops import polygonize
 from shapely.geometry import Polygon
-#from shapely.geometry import MultiPolygon
-from shapely.geometry import Point
-from shapely.geometry import MultiLineString
-#from anytree import NodeMixin, LevelOrderIter, PreOrderIter
 import matplotlib.pyplot as plt
 
 ''' start transplant'''
@@ -13,24 +9,16 @@ class Obsctacle:
     Attributes:
         I. boundary points
         II. check if line segment passes through obsctacle
-            1. use some lineat alg
-            2. check what nanu00 sent
     '''
 
-    def __init__(self, boundaries, defintions=[]):
+    def __init__(self, defintions):
         '''Inits the class Tree with a start point and an end "obstacle"'''
-        self.boundaries = boundaries
         self.defintions = defintions
-        self = Polygon(self.defintions)
+        self.pol = Polygon(self.defintions)
 
     def get_plottable(self):
         x,y = self.exterior.coords.xy
-       # plt.plot(x,y)
+        return (x, y, 'r-') 
 
     def checkint(self, tree): # how do you give input from external stuff?
-        tree.crosses(self.defintions)
-        if True:
-            redo tree?
-        else 
-            continue
-
+        return tree.intersects(self.pol)
