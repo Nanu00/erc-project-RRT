@@ -1,3 +1,4 @@
 anytree==2.8.0
 matplotlib
 PyQt5
+shapely

@@ -3,8 +3,7 @@ from anytree import NodeMixin, LevelOrderIter, PreOrderIter
 
 class PointNode(Point, NodeMixin):
     def __init__(self, x, y, parent=None, children=None):
-        self.x = x
-        self.y = y
+        Point.__init__(self, x, y)
         self.parent = parent
         if children:
             self.children = children
