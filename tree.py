@@ -41,7 +41,7 @@ class Tree:
         self.max_dist = min(abs(boundaries[0].x - boundaries[1].x), abs(boundaries[0].y - boundaries[1].y))/30
 
     def sample_iter(self, n, plt):
-        '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist and check for intersections.
+        '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist and check for intersections. Plot new points.
         Returns: Last Point in path if solution is found, None otherwise
         '''
         if n == 0:

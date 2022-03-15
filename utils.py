@@ -2,6 +2,8 @@ import random
 import shapely.geometry
 
 class Point(shapely.geometry.Point):
+    """Wrapper class for shapely.geometry.Point with a few useful methods added
+    """
     def __init__(self, x: float, y: float):
         shapely.geometry.Point.__init__(self, x, y)
 

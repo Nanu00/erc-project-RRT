@@ -20,11 +20,15 @@ class Obsctacle:
         x,y = self.pol.exterior.coords.xy
         return (x, y, 'r-') 
 
-    def checkint(self, p1, p2): # how do you give input from external stuff?
+    def checkint(self, p1, p2):
+        """Check for intersections between a line defined by 2 points and the obstacle itself.
+        """
         l = LineString([p1, p2])
         return self.pol.intersects(l)
 
 class EndArea(Obsctacle):
+    """Same as the Obstacle class, except plots itself in green
+    """
     def get_plottable(self):
         x,y = self.pol.exterior.coords.xy
         return (x, y, 'g-')
