@@ -40,7 +40,7 @@ class Tree:
         self.obstacles = obstacles
         self.max_dist = min(abs(boundaries[0].x - boundaries[1].x), abs(boundaries[0].y - boundaries[1].y))/30
 
-    def sample_iter(self, n):
+    def sample_iter(self, n, plt):
         '''Samples the next iteration of new points to add to the tree. Performs basic checking to move points into max_dist and check for intersections.
         Returns: Last Point in path if solution is found, None otherwise
         '''
@@ -68,6 +68,7 @@ class Tree:
 
             if not intersects:
                 new_node = PointNode(new_point.x, new_point.y, parent = closest_node)
+                plt.plot([new_node.x, closest_node.x], [new_node.y, closest_node.y], 'b-', marker='o', markersize=0.6, linewidth=0.5)
                 if self.end.checkint(new_node, closest_node):
                     return new_node
 
