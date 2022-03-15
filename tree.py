@@ -71,13 +71,3 @@ class Tree:
                 plt.plot([new_node.x, closest_node.x], [new_node.y, closest_node.y], 'b-', marker='o', markersize=0.6, linewidth=0.5)
                 if self.end.checkint(new_node, closest_node):
                     return new_node
-
-    def get_plottable(self):
-        '''Outputs the lines to plot using matplotlib's plot() function.
-        Returns: [ ( [x1, x2], [y1, y2], 'b-' ), ... ]
-        '''
-        plottable = []
-        for n in reversed(list(LevelOrderIter(self.start))):
-            if n.parent:
-                plottable.append(([n.x, n.parent.x], [n.y, n.parent.y], 'b-'))
-        return plottable
