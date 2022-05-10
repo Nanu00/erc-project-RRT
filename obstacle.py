@@ -25,10 +25,3 @@ class Obsctacle:
         """
         l = LineString([p1, p2])
         return self.pol.intersects(l)
-
-class EndArea(Obsctacle):
-    """Same as the Obstacle class, except plots itself in green
-    """
-    def get_plottable(self):
-        x,y = self.pol.exterior.coords.xy
-        return (x, y, 'g-')

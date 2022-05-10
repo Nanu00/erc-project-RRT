@@ -1,6 +1,5 @@
 from utils import Point
-from obstacle import Obsctacle
-from anytree import NodeMixin, LevelOrderIter, PreOrderIter
+from anytree import NodeMixin, PreOrderIter
 
 class PointNode(Point, NodeMixin):
     def __init__(self, x, y, parent=None, children=None):
@@ -47,8 +46,12 @@ class Tree:
         if n == 0:
             return
 
-        for _ in range(n):
-            new_point = Point.random_with_boundaries(self.boundaries)
+        for i in range(n):
+            if i%5 == 0:
+                new_point = self.end
+            else:
+                new_point = Point.random_with_boundaries(self.boundaries)
+
             closest_node = self.start
             least_dist = self.start.dist(new_point)
             for p in PreOrderIter(self.start):
@@ -69,5 +72,5 @@ class Tree:
             if not intersects:
                 new_node = PointNode(new_point.x, new_point.y, parent = closest_node)
                 plt.plot([new_node.x, closest_node.x], [new_node.y, closest_node.y], 'b-', marker='o', markersize=0.6, linewidth=0.5)
-                if self.end.checkint(new_node, closest_node):
+                if self.end == new_point:
                     return new_node

@@ -1,21 +1,27 @@
-from obstacle import EndArea, Obsctacle
+from obstacle import Obsctacle
 import tree, utils
 import matplotlib.pyplot as plt
 
 # Define all the obstables
-obs = [ Obsctacle((utils.Point(600, 700), utils.Point(700, 600), utils.Point(700, 700))) ]
+obstacle_list = [
+[(40, 0), (40, 40), (50, 50), (60, 40), (50, 40)],
+[(10, 10), (20, 20), (10, 30), (0, 20)],
+[(50, 60), (70, 80), (60, 100), (40, 80), (45, 100)],
+[(70, 20), (90, 20), (80, 40)] ]
+
+obs = [ Obsctacle(tuple(o)) for o in obstacle_list ]
 
 # Define the end area
-end = EndArea((utils.Point(700, 700), utils.Point(750, 700), utils.Point(750, 750), utils.Point(700, 750)))
+end = utils.Point(100, 1)
 
 # Make the tree by putting in the starting point and boundaries
-t = tree.Tree(utils.Point(500, 500), end, (utils.Point(0, 0), utils.Point(1000, 1000)), obs)
+t = tree.Tree(utils.Point(1, 1), end, (utils.Point(0, 0), utils.Point(100, 100)), obs)
 
 plt.ion()
 
 # Plot the obstacles and the end area
 # Outside the loop because they only need to be plotted once
-plottable = [o.get_plottable() for o in t.obstacles] + [t.end.get_plottable()]
+plottable = [o.get_plottable() for o in t.obstacles] + [(t.end.x, t.end.y, "g")]
 
 for a in plottable:
     plt.plot(*a, marker='.', markersize=5)
